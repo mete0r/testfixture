@@ -77,7 +77,7 @@ scan test fixtures in your main application/package. For example::
 
    config = Configurator(...)  # pyramid configurator
    ...
-   config.scan(ignore='yourpackage.tests')
+   config.scan(ignore=[b'yourpackage.tests'])
 
 .. _venusian: https://pypi.python.org/pypi/venusian
 
