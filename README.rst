@@ -69,6 +69,19 @@ You can also list test fixtures defined in your packages::
    Bar, foo	yourpackage.tests.fixtures.bar.bar
 
 
+Caveat
+------
+
+``mete0r.testfixture`` uses `venusian`_ to scan fixtures, so be careful not to
+scan test fixtures in your main application/package. For example::
+
+   config = Configurator(...)  # pyramid configurator
+   ...
+   config.scan(ignore='yourpackage.tests')
+
+.. _venusian: https://pypi.python.org/pypi/venusian
+
+
 Development environment
 -----------------------
 
