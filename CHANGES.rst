@@ -1,7 +1,7 @@
 Changes
 =======
 
-0.0.2 (unreleased)
+0.0.2 (2017-04-08)
 ------------------
 
 - Scans modules in the added order.
