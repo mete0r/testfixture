@@ -31,11 +31,14 @@ logger = logging.getLogger(__name__)
 class TestFixtures(object):
 
     def __init__(self, name=None):
-        self.pending = set()
+        self.pending = list()
         self.seen = set()
         if name is not None:
-            self.pending.add(name)
+            self.pending.append(name)
         self.registry = {}
+
+    def add(self, name):
+        self.pending.append(name)
 
     def scan(self):
         for name in self.pending:
@@ -45,7 +48,7 @@ class TestFixtures(object):
             scanner = venusian.Scanner(testfixtures=self)
             scanner.scan(module, categories=('testfixture',))
             self.seen.add(name)
-        self.pending.clear()
+        self.pending = []
 
     def get(self, *args):
         self.scan()
