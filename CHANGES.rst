@@ -4,7 +4,7 @@ Changes
 0.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Changes usage.
 
 
 0.0.0 (2017-01-27)

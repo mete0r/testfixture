@@ -54,7 +54,7 @@ Now you can use them in your tests::
     class FooTest(TestCase):
 
         def test_foo(self):
-            testfixtures = TestFixtures(fixtures)
+            testfixtures = TestFixtures('yourpackage.tests.fixtures')
             self.assertEquals({
                 'bar': {
                     'foo': None,

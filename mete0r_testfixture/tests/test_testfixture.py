@@ -26,9 +26,8 @@ class TestFixturesTest(TestCase):
 
     def test_nothing(self):
         from mete0r_testfixture.testfixture import TestFixtures
-        from mete0r_testfixture import tests
 
-        testfixtures = TestFixtures(tests)
+        testfixtures = TestFixtures('mete0r_testfixture.tests')
 
         self.assertEquals({
             'Foo': None,

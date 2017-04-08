@@ -19,6 +19,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import unicode_literals
+from importlib import import_module
 import logging
 
 import venusian
@@ -29,20 +30,25 @@ logger = logging.getLogger(__name__)
 
 class TestFixtures(object):
 
-    def __init__(self, package):
-        self.package = package
-        self.scanned = False
+    def __init__(self, name=None):
+        self.pending = set()
+        self.seen = set()
+        if name is not None:
+            self.pending.add(name)
         self.registry = {}
 
     def scan(self):
-        if self.scanned:
-            return
-        scanner = venusian.Scanner(testfixtures=self)
-        scanner.scan(self.package, categories=('testfixture',))
+        for name in self.pending:
+            if name in self.seen:
+                continue
+            module = import_module(name)
+            scanner = venusian.Scanner(testfixtures=self)
+            scanner.scan(module, categories=('testfixture',))
+            self.seen.add(name)
+        self.pending.clear()
 
     def get(self, *args):
-        if not self.scanned:
-            self.scan()
+        self.scan()
         fn = self.registry[args]
         return fn(self)
 
@@ -60,6 +66,11 @@ def testfixture(*args):
                 ob.__name__,
                 args
             )
+            if args in testfixtures.registry:
+                logger.warning(
+                    'duplicated testfixture found for %r',
+                    args,
+                )
             testfixtures.registry[args] = ob
         venusian.attach(wrapped, callback, category='testfixture')
         return wrapped

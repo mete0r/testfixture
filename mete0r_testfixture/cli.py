@@ -21,7 +21,6 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from argparse import ArgumentParser
 import gettext
-import importlib
 import logging
 import os.path
 
@@ -48,8 +47,7 @@ def main():
         argcomplete.autocomplete(parser)
     args = parser.parse_args()
     configureLogging(args.verbose)
-    package = importlib.import_module(args.package)
-    testfixtures = TestFixtures(package)
+    testfixtures = TestFixtures(args.package)
     testfixtures.scan()
 
     table = []
