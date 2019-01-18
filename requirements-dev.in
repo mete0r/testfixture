@@ -3,7 +3,7 @@ babel
 check-manifest
 coloredlogs
 flake8
-pip-tools >= 1.7.0
+pip-tools >= 3.2.0
 pyroma
 sphinx
 sphinx-argparse
